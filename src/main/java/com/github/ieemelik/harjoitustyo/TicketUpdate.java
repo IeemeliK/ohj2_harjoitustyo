@@ -3,6 +3,9 @@ package com.github.ieemelik.harjoitustyo;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ *
+ */
 public class TicketUpdate {
   private final String updateId;
   private final Date updateDate;

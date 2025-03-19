@@ -2,6 +2,13 @@ package com.github.ieemelik.harjoitustyo;
 
 import javafx.scene.paint.Color;
 
+/**
+ * Values to set the status of each Ticket-object. Each enum constant also implements getStatusText- and
+ * getStatusColor-methods.
+ *
+ * @see TicketStatus#getStatusColor()
+ * @see TicketStatus#getStatusText()
+ */
 public enum TicketStatus {
   NEW {
     @Override
