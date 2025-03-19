@@ -2,6 +2,7 @@ package com.github.ieemelik.harjoitustyo;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -47,6 +48,7 @@ public abstract class Ticket {
    *
    * @param description A String-value describing this ticket
    * @param title A String-value to be used as a title for this ticket
+   * @see TicketStatus
    */
   Ticket(String description, String title) {
     this.description = description;
@@ -56,12 +58,25 @@ public abstract class Ticket {
     this.ticketId = UUID.randomUUID().toString();
   }
 
+  /**
+   * {@link Ticket#ticketId}
+   */
   public String getTicketId() {
     return ticketId;
   }
 
+  /**
+   * {@link Ticket#creationDate}
+   */
   public Date getCreationDate() {
     return creationDate;
+  }
+
+  /**
+   * {@link Ticket#creationDate}
+   */
+  public void setCreationDate(Date creationDate) {
+    this.creationDate = creationDate;
   }
 
   /**
@@ -72,10 +87,6 @@ public abstract class Ticket {
     return updates;
   }
 
-  public void setCreationDate(Date creationDate) {
-    this.creationDate = creationDate;
-  }
-
   public Date getExpiryDate() {
     return expiryDate;
   }
@@ -84,26 +95,45 @@ public abstract class Ticket {
     this.expiryDate = expiryDate;
   }
 
+  /**
+   * {@link Ticket#description}
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * {@link Ticket#description}
+   */
   public void setDescription(String description) {
     this.description = description;
   }
 
+
+  /**
+   * {@link Ticket#title}
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * {@link Ticket#title}
+   */
   public void setTitle(String title) {
     this.title = title;
   }
 
+  /**
+   * {@link Ticket#status}
+   */
   public TicketStatus getStatus() {
     return status;
   }
 
+  /**
+   * {@link Ticket#status}
+   */
   public void setStatus(TicketStatus status) {
     this.status = status;
   }
@@ -121,7 +151,7 @@ public abstract class Ticket {
   }
 
   /**
-   * Adds an update of type TicketUpdate to this Ticket-objects updates list
+   * Adds an update of type TicketUpdate as the first element to this Ticket-objects updates list
    *
    * @param updateText String value describing the update
    * @param status Status value from the TicketStatus enum. This status is saved for each update so the status of each
@@ -130,7 +160,15 @@ public abstract class Ticket {
    * @see TicketStatus
    */
   private void addUpdate(String updateText, TicketStatus status) {
-    this.updates.add(new TicketUpdate(updateText, status));
+    this.updates.addFirst(new TicketUpdate(updateText, status));
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof Ticket ticket)) return false;
+    return Objects.equals(ticketId, ticket.ticketId) && Objects.equals(creationDate, ticket.creationDate)
+        && Objects.equals(expiryDate, ticket.expiryDate) && Objects.equals(description, ticket.description)
+        && Objects.equals(title, ticket.title) && status == ticket.status && Objects.equals(updates, ticket.updates);
   }
 
   @Override

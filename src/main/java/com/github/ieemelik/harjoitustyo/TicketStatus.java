@@ -59,7 +59,7 @@ public enum TicketStatus {
   };
 
   /**
-   * Gets the status text for given status value
+   * Gets the status text for calling status value
    *
    * @return The text value associated with any status value
    */
@@ -68,7 +68,7 @@ public enum TicketStatus {
   }
 
   /**
-   * Gets the status color for given status value
+   * Gets the status color for calling status value
    *
    * @return Returns the javafx Color value for given status value
    */

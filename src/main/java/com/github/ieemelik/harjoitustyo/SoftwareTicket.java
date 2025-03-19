@@ -1,6 +1,9 @@
 package com.github.ieemelik.harjoitustyo;
 
+import java.util.Objects;
+
 public class SoftwareTicket extends Ticket {
+
   private String softwareName;
   private String errorLog;
 
@@ -24,5 +27,26 @@ public class SoftwareTicket extends Ticket {
 
   public void setErrorLog(String errorLog) {
     this.errorLog = errorLog;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof SoftwareTicket that)) return false;
+    if (!super.equals(o)) return false;
+    return Objects.equals(softwareName, that.softwareName) && Objects.equals(errorLog, that.errorLog);
+  }
+
+  @Override
+  public String toString() {
+    return "SoftwareTicket{" +
+        "status=" + this.getStatus() +
+        ", ticketId='" + this.getTicketId() + '\'' +
+        ", creationDate=" + this.getCreationDate() +
+        ", expiryDate=" + this.getExpiryDate() +
+        ", description='" + this.getDescription() + '\'' +
+        ", title='" + this.getTitle() + '\'' +
+        ", softwareName='" + softwareName + '\'' +
+        ", errorLog='" + errorLog + '\'' +
+        '}';
   }
 }
