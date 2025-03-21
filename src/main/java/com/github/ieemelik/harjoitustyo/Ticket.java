@@ -1,9 +1,7 @@
 package com.github.ieemelik.harjoitustyo;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
-import java.util.UUID;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * An abstract-class describing a ticket
@@ -11,7 +9,7 @@ import java.util.UUID;
  * @author Eemeli Koikkalainen
  * @version 1.0
  */
-public abstract class Ticket {
+public abstract class Ticket implements Serializable {
   /**
    * An id is generated for every ticket automatically using UUID.randomUUID
    */
@@ -83,8 +81,8 @@ public abstract class Ticket {
    * @return ArrayList of TicketUpdate-objects
    * @see TicketUpdate
    */
-  public ArrayList<TicketUpdate> getUpdates() {
-    return updates;
+  public List<TicketUpdate> getUpdates() {
+    return Collections.unmodifiableList(updates);
   }
 
   public Date getExpiryDate() {
@@ -159,7 +157,8 @@ public abstract class Ticket {
    * @see TicketUpdate
    * @see TicketStatus
    */
-  private void addUpdate(String updateText, TicketStatus status) {
+  protected void addUpdate(String updateText, TicketStatus status) {
+    this.setStatus(status);
     this.updates.addFirst(new TicketUpdate(updateText, status));
   }
 

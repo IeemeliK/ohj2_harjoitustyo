@@ -1,5 +1,6 @@
 package com.github.ieemelik.harjoitustyo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -10,7 +11,7 @@ import java.util.UUID;
  * @author Eemeli Koikkalainen
  * @version 1.0
  */
-public class TicketUpdate {
+public class TicketUpdate implements Serializable {
   /**
    * Id for the update, generated on object creation
    */

@@ -1,9 +1,15 @@
 package com.github.ieemelik.harjoitustyo;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class SoftwareTicket extends Ticket {
-
+/**
+ * A class for software related tickets
+ *
+ * @author Eemeli Koikkalainen
+ * @version 1.0
+ */
+public class SoftwareTicket extends Ticket implements Serializable {
   private String softwareName;
   private String errorLog;
 

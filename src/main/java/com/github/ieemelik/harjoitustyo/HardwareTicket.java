@@ -1,11 +1,15 @@
 package com.github.ieemelik.harjoitustyo;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
+ * A class for hardware related tickets
  *
+ * @author Eemeli Koikkalainen
+ * @version 1.0
  */
-public class HardwareTicket extends Ticket {
+public class HardwareTicket extends Ticket implements Serializable {
   private String deviceType;
 
   HardwareTicket(String description, String title, String deviceType) {
