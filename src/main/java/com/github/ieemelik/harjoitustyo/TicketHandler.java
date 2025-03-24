@@ -25,12 +25,29 @@ public class TicketHandler {
    * list.
    */
   public TicketHandler() {
-    if (!file.exists()) return;
+    /*
+     * DUMMY DATA FOR TESTING PURPOSES
+     * TODO: REMOVE LATER
+     */
+    if (!file.exists()) {
+      HardwareTicket ticket = new HardwareTicket("Näyttö ei toimi", "Näyttö särki", "Näyttö");
+      SoftwareTicket ticket2 = new SoftwareTicket("Kuvaus2", "Word kirjoittaa itsestään", "", "");
+      HardwareTicket ticket3 = new HardwareTicket("Hiiri särki", "Hiiri hajonnut", "Hiiri");
+      SoftwareTicket ticket4 = new SoftwareTicket("Exceli ei aukea", "Exceli särki", "Microsoft Excel", "");
 
-    try {
-      this.readFile();
-    } catch (IOException | ClassNotFoundException e) {
-      throw new RuntimeException(e);
+      Ticket[] dummyTickets = new Ticket[]{ticket, ticket2, ticket3, ticket4};
+
+      ticket.addUpdate("Näyttö laitettu päälle", TicketStatus.RESOLVED);
+      ticket4.addUpdate("Tarkasteltu ongelmaa etäyhteydellä", TicketStatus.IN_PROGRESS);
+      ticket2.setStatus(TicketStatus.ON_HOLD);
+
+      this.addTickets(List.of(dummyTickets));
+    } else {
+      try {
+        this.readFile();
+      } catch (IOException | ClassNotFoundException e) {
+        throw new RuntimeException(e);
+      }
     }
 
     // Sorts tickets by status
@@ -114,31 +131,6 @@ public class TicketHandler {
       }
     } catch (IOException e) {
       throw new RuntimeException(e);
-    }
-  }
-
-  public static void main(String[] args) {
-    HardwareTicket ticket = new HardwareTicket("Kuvaus", "Hiiri hajonnut", "Hiiri");
-    SoftwareTicket ticket2 = new SoftwareTicket("Kuvaus2", "Word kirjoittaa itsestään", "", "");
-    HardwareTicket ticket3 = new HardwareTicket("Hiiri särki", "Hiiri hajonnut", "Hiiri");
-    HardwareTicket ticket4 = new HardwareTicket("Näyttö särki", "Näyttö hajonnut", "Näyttö");
-
-    ticket.addUpdate("Testipäivitys", TicketStatus.RESOLVED);
-    ticket2.setStatus(TicketStatus.ON_HOLD);
-
-    TicketHandler ticketHandler = new TicketHandler();
-    ticketHandler.addTicket(ticket);
-    ticketHandler.addTicket(ticket2);
-    ticketHandler.addTicket(ticket3);
-    ticketHandler.addTicket(ticket4);
-    ticketHandler.writeFile();
-
-    List<Ticket> tickets = ticketHandler.getTickets();
-    if (!tickets.isEmpty()) {
-      for (Ticket t : tickets) {
-        System.out.println(t);
-        System.out.println(t.getUpdates());
-      }
     }
   }
 }
