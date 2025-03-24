@@ -7,10 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class reads and writes Ticket objects from and to a file
@@ -23,6 +20,10 @@ public class TicketHandler {
   private final String fileName = "tickets.dat";
   private final File file = new File(fileName);
 
+  /**
+   * Attempts to read ticket-objects from "tickets.dat" file. If the file does not exist returns with an empty tickets
+   * list.
+   */
   public TicketHandler() {
     if (!file.exists()) return;
 
@@ -31,6 +32,9 @@ public class TicketHandler {
     } catch (IOException | ClassNotFoundException e) {
       throw new RuntimeException(e);
     }
+
+    // Sorts tickets by status
+    this.tickets.sort(Comparator.comparing(Ticket::getStatus));
   }
 
   /**
@@ -51,7 +55,7 @@ public class TicketHandler {
    *
    * @param ticket ticket to add
    */
-  private void addTicket(Ticket ticket) {
+  protected void addTicket(Ticket ticket) {
     try {
       this.tickets.add(ticket);
     } catch (Exception e) {
@@ -64,7 +68,7 @@ public class TicketHandler {
    *
    * @param tickets Collection of tickets to add
    */
-  private void addTickets(Collection<Ticket> tickets) {
+  protected void addTickets(Collection<Ticket> tickets) {
     try {
       this.tickets.addAll(tickets);
     } catch (Exception e) {
@@ -102,6 +106,9 @@ public class TicketHandler {
     }
   }
 
+  /**
+   * Writes the contents of this.tickets to a file
+   */
   protected void writeFile() {
     try(FileOutputStream fos = new FileOutputStream(this.file);
         ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -114,14 +121,19 @@ public class TicketHandler {
   }
 
   public static void main(String[] args) {
-    HardwareTicket ticket = new HardwareTicket("Kuvaus", "Tiketti", "Näyttö");
-    SoftwareTicket ticket2 = new SoftwareTicket("Kuvaus2", "Tiketti2", "", "");
+    HardwareTicket ticket = new HardwareTicket("Kuvaus", "Hiiri hajonnut", "Hiiri");
+    SoftwareTicket ticket2 = new SoftwareTicket("Kuvaus2", "Word kirjoittaa itsestään", "", "");
+    HardwareTicket ticket3 = new HardwareTicket("Hiiri särki", "Hiiri hajonnut", "Hiiri");
+    HardwareTicket ticket4 = new HardwareTicket("Näyttö särki", "Näyttö hajonnut", "Näyttö");
 
-    ticket.addUpdate("Testipäivitys", TicketStatus.IN_PROGRESS);
+    ticket.addUpdate("Testipäivitys", TicketStatus.RESOLVED);
+    ticket2.setStatus(TicketStatus.ON_HOLD);
 
     TicketHandler ticketHandler = new TicketHandler();
     ticketHandler.addTicket(ticket);
     ticketHandler.addTicket(ticket2);
+    ticketHandler.addTicket(ticket3);
+    ticketHandler.addTicket(ticket4);
     ticketHandler.writeFile();
 
     List<Ticket> tickets = ticketHandler.getTickets();
