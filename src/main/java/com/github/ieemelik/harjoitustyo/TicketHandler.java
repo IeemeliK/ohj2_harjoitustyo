@@ -72,6 +72,23 @@ public class TicketHandler {
     }
   }
 
+  protected boolean removeTicket(Ticket ticket) {
+    System.out.println(this.tickets);
+    try {
+      boolean removed = this.tickets.remove(ticket);
+      System.out.println(this.tickets);
+      return removed;
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * Reads ticket-objects from file into this.tickets
+   *
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
   private void readFile() throws IOException, ClassNotFoundException {
     try(FileInputStream fis = new FileInputStream(this.file);
           ObjectInputStream ois = new ObjectInputStream(fis)) {
