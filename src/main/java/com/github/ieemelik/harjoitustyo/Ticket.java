@@ -1,6 +1,7 @@
 package com.github.ieemelik.harjoitustyo;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -68,6 +69,15 @@ public abstract class Ticket implements Serializable {
    */
   public Date getCreationDate() {
     return creationDate;
+  }
+
+  /**
+   * Formats the creation date of this ticket to "dd/MM/yyyy HH:mm"
+   * @return the formatted date
+   */
+  public String getFormattedCreationDate() {
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    return formatter.format(creationDate);
   }
 
   /**
