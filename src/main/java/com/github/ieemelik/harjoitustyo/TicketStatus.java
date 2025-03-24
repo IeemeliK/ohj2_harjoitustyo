@@ -1,7 +1,5 @@
 package com.github.ieemelik.harjoitustyo;
 
-import javafx.scene.paint.Color;
-
 /**
  * Values to set the status of each Ticket-object. Each enum constant also implements getStatusText- and
  * getStatusColor-methods.
@@ -17,20 +15,8 @@ public enum TicketStatus {
     }
 
     @Override
-    public Color getStatusColor() {
-      return Color.RED;
-    }
-  },
-
-  ON_HOLD {
-    @Override
-    public String getStatusText() {
-      return "On hold";
-    }
-
-    @Override
-    public Color getStatusColor() {
-      return Color.BLUE;
+    public String getStatusColor() {
+      return "red";
     }
   },
 
@@ -41,8 +27,20 @@ public enum TicketStatus {
     }
 
     @Override
-    public Color getStatusColor() {
-      return Color.YELLOW;
+    public String getStatusColor() {
+      return "yellow";
+    }
+  },
+
+  ON_HOLD {
+    @Override
+    public String getStatusText() {
+      return "On hold";
+    }
+
+    @Override
+    public String getStatusColor() {
+      return "lightblue";
     }
   },
 
@@ -53,8 +51,8 @@ public enum TicketStatus {
     }
 
     @Override
-    public Color getStatusColor() {
-      return Color.GREEN;
+    public String getStatusColor() {
+      return "green";
     }
   };
 
@@ -70,9 +68,9 @@ public enum TicketStatus {
   /**
    * Gets the status color for calling status value
    *
-   * @return Returns the javafx Color value for given status value
+   * @return Returns the color value as string for given status value
    */
-  public Color getStatusColor() {
-    return Color.BLACK;
+  public String getStatusColor() {
+    return "black";
   }
 }
