@@ -15,7 +15,7 @@ import java.util.Objects;
 public class TicketListView {
   private final TicketHandler ticketHandler;
   private final ObservableList<Ticket> tickets;
-  protected final ListView<Ticket> listView = new ListView<>();
+  private final ListView<Ticket> listView = new ListView<>();
 
   TicketListView(TicketHandler ticketHandler) {
     this.ticketHandler = ticketHandler;
@@ -23,6 +23,7 @@ public class TicketListView {
     listView.getStylesheets().add(
         Objects.requireNonNull(getClass().getResource("ticket-list-view.css")).toExternalForm()
     );
+
     listView.setCellFactory(p -> new ListCell<>() {
       {
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -38,7 +39,6 @@ public class TicketListView {
           getStyleClass().add("empty");
         } else {
           setGraphic(createListItem(ticket));
-
           if (!getStyleClass().contains("custom-list-cell")) {
             getStyleClass().add("custom-list-cell");
           }
@@ -50,13 +50,19 @@ public class TicketListView {
     listView.setItems(this.tickets);
   }
 
+  /**
+   * Creates a graphical item to add as a list cell
+   *
+   * @param ticket A ticket to be used to create the element
+   * @return the graphical element
+   */
   private HBox createListItem(Ticket ticket) {
     TicketStatus status = ticket.getStatus();
     HBox hBox = new HBox(7);
     Label statusLabel = new Label(status.getStatusText());
     Text ticketTitle = new Text(ticket.getTitle());
     Text ticketDate = new Text(ticket.getFormattedCreationDate());
-    Button deleteButton = new Button("DELETE");
+    Button deleteButton = new Button("POISTA");
     Region spacer = new Region();
 
     deleteButton.setOnAction(e -> deleteHandler(ticket));
@@ -76,6 +82,12 @@ public class TicketListView {
     return hBox;
   }
 
+  /**
+   * Attempts to remove given ticket from ticketHandler list and then from the listview if successful
+   *
+   * @param ticket the ticket to remove
+   * @see TicketHandler#removeTicket(Ticket)
+   */
   private void deleteHandler(Ticket ticket) {
     if (this.ticketHandler.removeTicket(ticket)) {
       this.tickets.remove(ticket);
