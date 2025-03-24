@@ -11,7 +11,7 @@ public enum TicketStatus {
   NEW {
     @Override
     public String getStatusText() {
-      return "To do";
+      return "Uusi";
     }
 
     @Override
@@ -23,7 +23,7 @@ public enum TicketStatus {
   IN_PROGRESS {
     @Override
     public String getStatusText() {
-      return "In progress";
+      return "Kesken";
     }
 
     @Override
@@ -35,7 +35,7 @@ public enum TicketStatus {
   ON_HOLD {
     @Override
     public String getStatusText() {
-      return "On hold";
+      return "Pidossa";
     }
 
     @Override
@@ -47,7 +47,7 @@ public enum TicketStatus {
   RESOLVED {
     @Override
     public String getStatusText() {
-      return "Resolved";
+      return "Ratkaistu";
     }
 
     @Override
