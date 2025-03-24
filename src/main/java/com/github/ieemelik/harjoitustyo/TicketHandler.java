@@ -77,11 +77,8 @@ public class TicketHandler {
   }
 
   protected boolean removeTicket(Ticket ticket) {
-    System.out.println(this.tickets);
     try {
-      boolean removed = this.tickets.remove(ticket);
-      System.out.println(this.tickets);
-      return removed;
+      return this.tickets.remove(ticket);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
