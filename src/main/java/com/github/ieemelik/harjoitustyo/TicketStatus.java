@@ -52,7 +52,7 @@ public enum TicketStatus {
 
     @Override
     public String getStatusColor() {
-      return "green";
+      return "lightgreen";
     }
   };
 
