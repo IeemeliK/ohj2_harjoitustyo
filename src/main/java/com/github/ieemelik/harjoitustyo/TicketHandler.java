@@ -68,12 +68,18 @@ public class TicketHandler {
   /**
    * Adds an observer to the observers list. The observer is consumed on specific actions to the tickets list
    *
-   * @param observer A method to be called
+   * @param observer A method to be called with the updated list of tickets as a parameter
    */
   public void addObserver(Consumer<List<Ticket>> observer) {
     observers.add(observer);
   }
 
+  /**
+   * Notifies observers with changed ticket list
+   * 
+   * @param tickets Changed tickets list
+   * @see TicketHandler#addObserver(Consumer) 
+   */
   public void notifyObservers(List<Ticket> tickets) {
     observers.forEach(observer -> observer.accept(tickets));
   }

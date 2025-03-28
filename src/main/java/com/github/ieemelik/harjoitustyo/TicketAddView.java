@@ -10,9 +10,13 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * Constructs a graphical view for adding tickets. This is implemented through a new stage which can be extracted
+ * from this class to be used in the main javafx application
+ */
 public class TicketAddView {
   private final Stage stage = new Stage();
-  private TicketHandler ticketHandler;
+  private final TicketHandler ticketHandler;
 
   private final Label ticketTitleLabel = new Label("Tiketin otsikko");
   private final TextField ticketTitle = new TextField();
@@ -69,6 +73,9 @@ public class TicketAddView {
     this.stage.setTitle("Add ticket");
   }
 
+  /**
+   * Builds ticket information inputs based on selected ticket type
+   */
   private void handleTypeSelection() {
     String selectedType = ticketTypeSelector.getValue();
     ObservableList<Node> children = ticketInformationBox.getChildren();
@@ -83,6 +90,10 @@ public class TicketAddView {
     children.add(addButton);
   }
 
+  /**
+   * Attempts to add a ticket with given information to the tickets list. If title or description is missing, this
+   * shows an alert
+   */
   private void handleAddButton() {
     if (ticketTitle.getText().isBlank() || ticketDescription.getText().isBlank()) {
       Alert alert = new Alert(Alert.AlertType.WARNING);
