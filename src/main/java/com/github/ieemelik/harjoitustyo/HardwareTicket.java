@@ -12,8 +12,12 @@ import java.util.Objects;
 public class HardwareTicket extends Ticket implements Serializable {
   private String deviceType;
 
-  HardwareTicket(String description, String title, String deviceType) {
-    super(description, title);
+  HardwareTicket(String title, String description){
+    super(title, description);
+  }
+
+  HardwareTicket(String title, String description, String deviceType) {
+    super(title, description);
     this.deviceType = deviceType;
   }
 

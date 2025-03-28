@@ -24,6 +24,8 @@ public class TicketListView {
         Objects.requireNonNull(getClass().getResource("ticket-list-view.css")).toExternalForm()
     );
 
+    ticketHandler.addObserver(this.tickets::setAll);
+
     listView.setCellFactory(p -> new ListCell<>() {
       {
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -83,15 +85,13 @@ public class TicketListView {
   }
 
   /**
-   * Attempts to remove given ticket from ticketHandler list and then from the listview if successful
+   * Attempts to remove given ticket from ticketHandler list (and updates this listview through observers)
    *
    * @param ticket the ticket to remove
    * @see TicketHandler#removeTicket(Ticket)
    */
   private void deleteHandler(Ticket ticket) {
-    if (this.ticketHandler.removeTicket(ticket)) {
-      this.tickets.remove(ticket);
-    }
+   this.ticketHandler.removeTicket(ticket);
   }
 
   public ListView<Ticket> getListView() {

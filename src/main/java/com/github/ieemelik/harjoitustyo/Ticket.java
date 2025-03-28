@@ -49,7 +49,7 @@ public abstract class Ticket implements Serializable {
    * @param title A String-value to be used as a title for this ticket
    * @see TicketStatus
    */
-  Ticket(String description, String title) {
+  Ticket(String title, String description) {
     this.description = description;
     this.title = title;
     this.status = TicketStatus.NEW;

@@ -1,11 +1,11 @@
 package com.github.ieemelik.harjoitustyo;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -14,6 +14,7 @@ public class GraphicalUserInterface extends Application {
   private final TicketListView ticketList = new TicketListView(ticketHandler);
   private final ListView<Ticket> ticketListView = ticketList.getListView();
   private final Button addButton = new Button("Lisää Tiketti");
+  private final StackPane root = new StackPane();
 
   public static void main(String[] args) {
     launch(args);
@@ -26,27 +27,26 @@ public class GraphicalUserInterface extends Application {
   }
 
   public void handleAddButton() {
-    Stage addStage = new Stage();
-    TextField ticketName = new TextField();
-    StackPane stackPane = new StackPane();
-    stackPane.getChildren().add(ticketName);
-    Scene scene = new Scene(stackPane, 500, 500);
-    addStage.setScene(scene);
+    TicketAddView ticketAddView = new TicketAddView(this.ticketHandler);
+    Stage addStage = ticketAddView.getStage();
     addStage.show();
+
+    // Disables main stage while ticket adding is showing
+    this.root.disableProperty().bind(addStage.showingProperty());
   }
 
   @Override
   public void start(Stage primaryStage) {
-    StackPane root = new StackPane();
     StackPane.setAlignment(this.addButton, Pos.BOTTOM_RIGHT);
     this.addButton.setTranslateY(-40);
     this.addButton.setTranslateX(-40);
     this.addButton.setOnAction(e -> handleAddButton());
-    root.getChildren().addAll(this.ticketListView, addButton);
+    this.root.getChildren().addAll(this.ticketListView, addButton);
 
-    Scene scene = new Scene(root, 800, 600);
+    Scene scene = new Scene(this.root, 800, 600);
     primaryStage.setScene(scene);
     primaryStage.setTitle("HelpDesk");
+    primaryStage.setOnCloseRequest(e -> Platform.exit());
     primaryStage.show();
   }
 }

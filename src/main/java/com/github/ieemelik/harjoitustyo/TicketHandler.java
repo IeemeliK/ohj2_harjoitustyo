@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * This class reads and writes Ticket objects from and to a file
@@ -19,6 +20,7 @@ public class TicketHandler {
   private final ArrayList<Ticket> tickets = new ArrayList<>();
   private final String fileName = "tickets.dat";
   private final File file = new File(fileName);
+  private final List<Consumer<List<Ticket>>> observers = new ArrayList<>();
 
   /**
    * Attempts to read ticket-objects from "tickets.dat" file. If the file does not exist returns with an empty tickets
@@ -63,8 +65,17 @@ public class TicketHandler {
     return Collections.unmodifiableList(this.tickets);
   }
 
-  public String getFileName() {
-    return fileName;
+  /**
+   * Adds an observer to the observers list. The observer is consumed on specific actions to the tickets list
+   *
+   * @param observer A method to be called
+   */
+  public void addObserver(Consumer<List<Ticket>> observer) {
+    observers.add(observer);
+  }
+
+  public void notifyObservers(List<Ticket> tickets) {
+    observers.forEach(observer -> observer.accept(tickets));
   }
 
   /**
@@ -74,7 +85,8 @@ public class TicketHandler {
    */
   protected void addTicket(Ticket ticket) {
     try {
-      this.tickets.add(ticket);
+      this.tickets.addFirst(ticket);
+      notifyObservers(this.tickets);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -88,6 +100,7 @@ public class TicketHandler {
   protected void addTickets(Collection<Ticket> tickets) {
     try {
       this.tickets.addAll(tickets);
+      notifyObservers(this.tickets);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -95,7 +108,9 @@ public class TicketHandler {
 
   protected boolean removeTicket(Ticket ticket) {
     try {
-      return this.tickets.remove(ticket);
+      boolean removed = this.tickets.remove(ticket);
+      if (removed) notifyObservers(this.tickets);
+      return removed;
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

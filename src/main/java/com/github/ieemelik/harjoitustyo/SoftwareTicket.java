@@ -13,8 +13,12 @@ public class SoftwareTicket extends Ticket implements Serializable {
   private String softwareName;
   private String errorLog;
 
-  SoftwareTicket(String description, String title, String softwareName, String errorLog) {
-    super(description, title);
+  SoftwareTicket(String title, String description) {
+    super(title, description);
+  }
+
+  SoftwareTicket(String title, String description, String softwareName, String errorLog) {
+    super(title, description);
     this.softwareName = softwareName;
     this.errorLog = errorLog;
   }
