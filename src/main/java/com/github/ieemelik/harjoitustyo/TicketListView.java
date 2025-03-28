@@ -24,7 +24,9 @@ public class TicketListView {
         Objects.requireNonNull(getClass().getResource("ticket-list-view.css")).toExternalForm()
     );
 
-    ticketHandler.addObserver(this.tickets::setAll);
+    ticketHandler.addObserver((tickets) -> {
+      this.listView.setItems(FXCollections.observableList(tickets));
+    });
 
     listView.setCellFactory(p -> new ListCell<>() {
       {
