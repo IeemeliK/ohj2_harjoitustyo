@@ -27,23 +27,21 @@ public class TicketHandler {
    * list.
    */
   public TicketHandler() {
-    /*
-     * DUMMY DATA FOR TESTING PURPOSES
-     * TODO: REMOVE LATER
-     */
     if (!file.exists()) {
-      HardwareTicket ticket = new HardwareTicket("Näyttö ei toimi", "Näyttö särki", "Näyttö");
-      SoftwareTicket ticket2 = new SoftwareTicket("Kuvaus2", "Word kirjoittaa itsestään", "", "");
-      HardwareTicket ticket3 = new HardwareTicket("Hiiri särki", "Hiiri hajonnut", "Hiiri");
-      SoftwareTicket ticket4 = new SoftwareTicket("Exceli ei aukea", "Exceli särki", "Microsoft Excel", "");
+      ArrayList<Ticket> dummyTickets = new ArrayList<>();
+      for (int i = 1; i <= 50; i++) {
+        SoftwareTicket ticket = new SoftwareTicket("Softatiketti" + i, "Kuvaus ".repeat(i), "Microsoft Excel", "Errori ".repeat(i));
+        ticket.setStatus(TicketStatus.values()[i % TicketStatus.values().length]);
+        dummyTickets.add(ticket);
+      }
 
-      Ticket[] dummyTickets = new Ticket[]{ticket, ticket2, ticket3, ticket4};
+      for (int i = 1; i <= 50; i++) {
+        HardwareTicket ticket = new HardwareTicket("Rautatiketti" + i, "Kuvaus".repeat(i), "Näyttö");
+        ticket.setStatus(TicketStatus.values()[i % TicketStatus.values().length]);
+        dummyTickets.add(ticket);
+      }
 
-      ticket.addUpdate("Näyttö laitettu päälle", TicketStatus.RESOLVED);
-      ticket4.addUpdate("Tarkasteltu ongelmaa etäyhteydellä", TicketStatus.IN_PROGRESS);
-      ticket2.setStatus(TicketStatus.ON_HOLD);
-
-      this.addTickets(List.of(dummyTickets));
+      this.addTickets(dummyTickets);
     } else {
       try {
         this.readFile();
