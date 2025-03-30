@@ -32,6 +32,14 @@
     -fx-padding: 8;
 }
 
+.list-cell.custom-list-cell:selected:even {
+    -fx-background-color: transparent;
+}
+
+.list-cell.custom-list-cell:selected:odd {
+    -fx-background-color: #f9f9f9;
+}
+
 .list-cell.custom-list-cell:hover {
     -fx-cursor: hand;
 }

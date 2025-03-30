@@ -43,6 +43,10 @@ public class TicketListView {
           getStyleClass().add("empty");
         } else {
           setGraphic(createListItem(ticket));
+          setOnMouseClicked(e -> {
+            SingleTicketView singleTicketView = new SingleTicketView(ticket, ticketHandler);
+            GraphicalUserInterface.switchRoot(singleTicketView.getRoot());
+          });
           if (!getStyleClass().contains("custom-list-cell")) {
             getStyleClass().add("custom-list-cell");
           }

@@ -77,11 +77,10 @@ public class TicketHandler {
   /**
    * Notifies observers with changed ticket list
    * 
-   * @param tickets Changed tickets list
-   * @see TicketHandler#addObserver(Consumer) 
+   * @see TicketHandler#addObserver(Consumer)
    */
-  public void notifyObservers(List<Ticket> tickets) {
-    observers.forEach(observer -> observer.accept(tickets));
+  public void notifyObservers() {
+    observers.forEach(observer -> observer.accept(this.tickets));
   }
 
   /**
@@ -92,7 +91,7 @@ public class TicketHandler {
   protected void addTicket(Ticket ticket) {
     try {
       this.tickets.addFirst(ticket);
-      notifyObservers(this.tickets);
+      notifyObservers();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -106,7 +105,7 @@ public class TicketHandler {
   protected void addTickets(Collection<Ticket> tickets) {
     try {
       this.tickets.addAll(tickets);
-      notifyObservers(this.tickets);
+      notifyObservers();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -115,7 +114,7 @@ public class TicketHandler {
   protected boolean removeTicket(Ticket ticket) {
     try {
       boolean removed = this.tickets.remove(ticket);
-      if (removed) notifyObservers(this.tickets);
+      if (removed) notifyObservers();
       return removed;
     } catch (Exception e) {
       throw new RuntimeException(e);
