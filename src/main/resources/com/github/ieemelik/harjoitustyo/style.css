@@ -1,0 +1,16 @@
+.mainRoot {
+    -fx-font-family: "JetBrains Mono";
+}
+
+.addButton {
+    -fx-background-color: darkgreen;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-padding: 12;
+    -fx-background-radius: 10px;
+}
+
+.addButton:hover {
+    -fx-cursor: hand;
+}

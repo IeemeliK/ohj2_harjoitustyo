@@ -1,9 +1,9 @@
 .ticket-status {
-    -fx-background-radius: 7;
+    -fx-background-radius: 5px;
     -fx-text-fill: black;
-    -fx-padding: 5;
+    -fx-padding: 7;
     -fx-font-family: "JetBrains Mono";
-    -fx-font-size: 11;
+    -fx-font-size: 12;
 }
 
 .ticket-title {
@@ -21,6 +21,7 @@
     -fx-background-color: red;
     -fx-font-family: "JetBrains Mono";
     -fx-font-weight: bold;
+    -fx-padding: 7;
 }
 
 .list-cell.empty {

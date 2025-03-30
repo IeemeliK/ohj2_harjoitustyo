@@ -10,6 +10,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class GraphicalUserInterface extends Application {
   private final TicketHandler ticketHandler = new TicketHandler();
   private final TicketListView ticketList = new TicketListView(ticketHandler);
@@ -43,11 +45,15 @@ public class GraphicalUserInterface extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    StackPane.setAlignment(this.addButton, Pos.BOTTOM_RIGHT);
+    StackPane.setAlignment(this.addButton, Pos.BOTTOM_CENTER);
     this.addButton.setTranslateY(-40);
-    this.addButton.setTranslateX(-40);
     this.addButton.setOnAction(e -> handleAddButton());
+    this.addButton.getStyleClass().add("addButton");
+
     MAIN_ROOT.getChildren().addAll(this.ticketListView, addButton);
+    MAIN_ROOT.getStyleClass().add("mainRoot");
+    MAIN_ROOT.getStylesheets().add(
+        Objects.requireNonNull(GraphicalUserInterface.class.getResource("style.css")).toExternalForm());
 
     scene = new Scene(MAIN_ROOT, 800, 600);
     primaryStage.setScene(scene);

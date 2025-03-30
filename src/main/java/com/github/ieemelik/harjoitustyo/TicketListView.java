@@ -9,23 +9,25 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 
 public class TicketListView {
   private final TicketHandler ticketHandler;
-  private final ObservableList<Ticket> tickets;
   private final ListView<Ticket> listView = new ListView<>();
 
   TicketListView(TicketHandler ticketHandler) {
     this.ticketHandler = ticketHandler;
-    this.tickets = FXCollections.observableArrayList(ticketHandler.getTickets());
+    ObservableList<Ticket> tickets = FXCollections.observableArrayList(ticketHandler.getTickets());
+
     listView.getStylesheets().add(
         Objects.requireNonNull(getClass().getResource("ticket-list-view.css")).toExternalForm()
     );
 
-    ticketHandler.addObserver((tickets) -> {
-      this.listView.setItems(FXCollections.observableList(tickets));
+    ticketHandler.addObserver((newTickets) -> {
+      newTickets.sort(Comparator.comparing(Ticket::getStatus));
+      this.listView.setItems(FXCollections.observableList(newTickets));
     });
 
     listView.setCellFactory(p -> new ListCell<>() {
@@ -55,7 +57,7 @@ public class TicketListView {
       }
     });
 
-    listView.setItems(this.tickets);
+    listView.setItems(tickets);
   }
 
   /**
