@@ -84,7 +84,8 @@ public class SingleTicketView {
 
     this.root.getStyleClass().add("singleViewRoot");
     this.root.getStylesheets().add(
-        Objects.requireNonNull(this.getClass().getResource("single-ticket-view.css")).toExternalForm());
+        Objects.requireNonNull(this.getClass().getResource("single-ticket-view.css")).toExternalForm()
+    );
   }
 
   /**

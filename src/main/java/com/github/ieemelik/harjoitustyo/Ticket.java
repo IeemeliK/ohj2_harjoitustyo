@@ -20,10 +20,6 @@ public abstract class Ticket implements Serializable {
    * The date this ticket was created. Generated on object creation
    */
   private Date creationDate;
-  /**
-   *
-   */
-  private Date expiryDate;
 
   /**
    * String-type description of the ticket
@@ -39,7 +35,6 @@ public abstract class Ticket implements Serializable {
    * @see TicketStatus
    */
   private TicketStatus status;
-  private final ArrayList<TicketUpdate> updates = new ArrayList<>();
 
   /**
    * This constructor sets the description and title of the Ticket-object to the given parameters and sets the status to
@@ -88,22 +83,6 @@ public abstract class Ticket implements Serializable {
   }
 
   /**
-   * @return ArrayList of TicketUpdate-objects
-   * @see TicketUpdate
-   */
-  public List<TicketUpdate> getUpdates() {
-    return Collections.unmodifiableList(updates);
-  }
-
-  public Date getExpiryDate() {
-    return expiryDate;
-  }
-
-  public void setExpiryDate(Date expiryDate) {
-    this.expiryDate = expiryDate;
-  }
-
-  /**
    * {@link Ticket#description}
    */
   public String getDescription() {
@@ -146,38 +125,12 @@ public abstract class Ticket implements Serializable {
     this.status = status;
   }
 
-  /**
-   * A helper method to resolve calling Ticket-object
-   *
-   * @param resolveText A text explaining how or why this ticket was resolved. This creates an update using the addUpdate-
-   *                    method and sets the ticket status to resolved
-   * @see Ticket#addUpdate(String, TicketStatus)
-   */
-  private void resolve(String resolveText) {
-    this.setStatus(TicketStatus.RESOLVED);
-    this.addUpdate(resolveText, TicketStatus.RESOLVED);
-  }
-
-  /**
-   * Adds an update of type TicketUpdate as the first element to this Ticket-objects updates list
-   *
-   * @param updateText String value describing the update
-   * @param status Status value from the TicketStatus enum. This status is saved for each update so the status of each
-   *               update can be tracked
-   * @see TicketUpdate
-   * @see TicketStatus
-   */
-  protected void addUpdate(String updateText, TicketStatus status) {
-    this.setStatus(status);
-    this.updates.addFirst(new TicketUpdate(updateText, status));
-  }
-
   @Override
   public boolean equals(Object o) {
     if (!(o instanceof Ticket ticket)) return false;
     return Objects.equals(ticketId, ticket.ticketId) && Objects.equals(creationDate, ticket.creationDate)
-        && Objects.equals(expiryDate, ticket.expiryDate) && Objects.equals(description, ticket.description)
-        && Objects.equals(title, ticket.title) && status == ticket.status && Objects.equals(updates, ticket.updates);
+        && Objects.equals(description, ticket.description)
+        && Objects.equals(title, ticket.title) && status == ticket.status;
   }
 
   @Override
@@ -186,7 +139,6 @@ public abstract class Ticket implements Serializable {
         "status=" + status +
         ", ticketId='" + ticketId + '\'' +
         ", creationDate=" + creationDate +
-        ", expiryDate=" + expiryDate +
         ", description='" + description + '\'' +
         ", title='" + title + '\'' +
         '}';
