@@ -200,6 +200,7 @@ public class SingleTicketView {
     buttonBox.getChildren().remove(saveButton);
     buttonBox.getChildren().add(modifyButton);
 
+    ticketHandler.writeFile();
     ticketHandler.notifyObservers();
   }
 
