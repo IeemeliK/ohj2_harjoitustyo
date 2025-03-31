@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.github.ieemelik.harjoitustyo","l":"com.github.ieemelik.harjoitustyo"}];updateSearchResults();
