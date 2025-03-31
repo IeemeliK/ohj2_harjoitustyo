@@ -20,10 +20,6 @@ public abstract class Ticket implements Serializable {
    * The date this ticket was created. Generated on object creation
    */
   private Date creationDate;
-  /**
-   *
-   */
-  private Date expiryDate;
 
   /**
    * String-type description of the ticket
@@ -93,14 +89,6 @@ public abstract class Ticket implements Serializable {
    */
   public List<TicketUpdate> getUpdates() {
     return Collections.unmodifiableList(updates);
-  }
-
-  public Date getExpiryDate() {
-    return expiryDate;
-  }
-
-  public void setExpiryDate(Date expiryDate) {
-    this.expiryDate = expiryDate;
   }
 
   /**
@@ -176,7 +164,7 @@ public abstract class Ticket implements Serializable {
   public boolean equals(Object o) {
     if (!(o instanceof Ticket ticket)) return false;
     return Objects.equals(ticketId, ticket.ticketId) && Objects.equals(creationDate, ticket.creationDate)
-        && Objects.equals(expiryDate, ticket.expiryDate) && Objects.equals(description, ticket.description)
+        && Objects.equals(description, ticket.description)
         && Objects.equals(title, ticket.title) && status == ticket.status && Objects.equals(updates, ticket.updates);
   }
 
@@ -186,7 +174,6 @@ public abstract class Ticket implements Serializable {
         "status=" + status +
         ", ticketId='" + ticketId + '\'' +
         ", creationDate=" + creationDate +
-        ", expiryDate=" + expiryDate +
         ", description='" + description + '\'' +
         ", title='" + title + '\'' +
         '}';

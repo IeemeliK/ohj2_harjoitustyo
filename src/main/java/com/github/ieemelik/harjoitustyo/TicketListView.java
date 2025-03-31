@@ -13,6 +13,9 @@ import java.util.Comparator;
 import java.util.Objects;
 
 
+/**
+ * Builds a styled ListView-object that displays tickets from given ticketHandler-class
+ */
 public class TicketListView {
   private final TicketHandler ticketHandler;
   private final ListView<Ticket> listView = new ListView<>();

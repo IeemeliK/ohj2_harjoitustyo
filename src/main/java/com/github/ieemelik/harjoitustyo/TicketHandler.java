@@ -32,12 +32,14 @@ public class TicketHandler {
       for (int i = 1; i <= 50; i++) {
         SoftwareTicket ticket = new SoftwareTicket("Softatiketti" + i, "Kuvaus ".repeat(i), "Microsoft Excel", "Errori ".repeat(i));
         ticket.setStatus(TicketStatus.values()[i % TicketStatus.values().length]);
+        ticket.addUpdate("Päivitys", ticket.getStatus());
         dummyTickets.add(ticket);
       }
 
       for (int i = 1; i <= 50; i++) {
         HardwareTicket ticket = new HardwareTicket("Rautatiketti" + i, "Kuvaus".repeat(i), "Näyttö");
         ticket.setStatus(TicketStatus.values()[i % TicketStatus.values().length]);
+        ticket.addUpdate("Päivitys", ticket.getStatus());
         dummyTickets.add(ticket);
       }
 
@@ -73,7 +75,7 @@ public class TicketHandler {
   }
 
   /**
-   * Notifies observers with changed ticket list
+   * Notifies observers with the changed ticket list
    * 
    * @see TicketHandler#addObserver(Consumer)
    */
@@ -109,6 +111,12 @@ public class TicketHandler {
     }
   }
 
+  /**
+   * Removes a ticket from this.tickets and notifies observers of the change
+   *
+   * @param ticket ticket to remove
+   * @return true if list was changed
+   */
   protected boolean removeTicket(Ticket ticket) {
     try {
       boolean removed = this.tickets.remove(ticket);

@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.github.ieemelik.harjoitustyo.GraphicalUserInterface.switchRoot;
@@ -75,6 +76,10 @@ public class SingleTicketView {
       buildSoftwareTicketFields(swTicket);
     }
 
+    List<TicketUpdate> ticketUpdates = ticket.getUpdates();
+    TicketUpdatesView ticketUpdatesView = new TicketUpdatesView(ticketUpdates);
+    ticketInfo.getChildren().add(ticketUpdatesView.getUpdatesView());
+
     statusComboBox.disableProperty().bind(this.editable.not());
     ticketTitle.editableProperty().bind(this.editable);
     ticketDescription.editableProperty().bind(this.editable);
@@ -82,9 +87,11 @@ public class SingleTicketView {
     softwareName.editableProperty().bind(this.editable);
     errorLog.editableProperty().bind(this.editable);
 
+
     this.root.getStyleClass().add("singleViewRoot");
     this.root.getStylesheets().add(
-        Objects.requireNonNull(this.getClass().getResource("single-ticket-view.css")).toExternalForm());
+        Objects.requireNonNull(this.getClass().getResource("single-ticket-view.css")).toExternalForm()
+    );
   }
 
   /**
@@ -136,6 +143,8 @@ public class SingleTicketView {
     ticketInfo.setPadding(new Insets(20, 70, 20, 70));
 
     ticketInfo.getChildren().addAll(statusBox, titleBox, descriptionBox);
+
+
     root.setTop(buttonBox);
     root.setCenter(ticketInfoScroll);
   }
@@ -199,6 +208,7 @@ public class SingleTicketView {
     buttonBox.getChildren().remove(saveButton);
     buttonBox.getChildren().add(modifyButton);
 
+    ticketHandler.writeFile();
     ticketHandler.notifyObservers();
   }
 

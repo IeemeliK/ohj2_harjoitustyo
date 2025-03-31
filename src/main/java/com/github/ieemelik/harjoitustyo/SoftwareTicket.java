@@ -52,7 +52,6 @@ public class SoftwareTicket extends Ticket implements Serializable {
         "status=" + this.getStatus() +
         ", ticketId='" + this.getTicketId() + '\'' +
         ", creationDate=" + this.getCreationDate() +
-        ", expiryDate=" + this.getExpiryDate() +
         ", description='" + this.getDescription() + '\'' +
         ", title='" + this.getTitle() + '\'' +
         ", softwareName='" + softwareName + '\'' +
