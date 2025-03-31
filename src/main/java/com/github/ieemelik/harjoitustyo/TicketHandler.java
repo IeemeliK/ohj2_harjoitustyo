@@ -73,7 +73,7 @@ public class TicketHandler {
   }
 
   /**
-   * Notifies observers with changed ticket list
+   * Notifies observers with the changed ticket list
    * 
    * @see TicketHandler#addObserver(Consumer)
    */
@@ -109,6 +109,12 @@ public class TicketHandler {
     }
   }
 
+  /**
+   * Removes a ticket from this.tickets and notifies observers of the change
+   *
+   * @param ticket ticket to remove
+   * @return true if list was changed
+   */
   protected boolean removeTicket(Ticket ticket) {
     try {
       boolean removed = this.tickets.remove(ticket);

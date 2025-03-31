@@ -12,6 +12,9 @@ import java.util.Objects;
 import static com.github.ieemelik.harjoitustyo.GraphicalUserInterface.switchRoot;
 import static com.github.ieemelik.harjoitustyo.GraphicalUserInterface.MAIN_ROOT;
 
+/**
+ * Builds a view for inspecting and modifying a single ticket
+ */
 public class SingleTicketView {
   private final Ticket ticket;
   private final TicketHandler ticketHandler;

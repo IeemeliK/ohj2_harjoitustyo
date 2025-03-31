@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * Handles all the graphical views for this application
+ */
 public class GraphicalUserInterface extends Application {
   private final TicketHandler ticketHandler = new TicketHandler();
   private final TicketListView ticketList = new TicketListView(ticketHandler);
@@ -30,10 +33,17 @@ public class GraphicalUserInterface extends Application {
     ticketHandler.writeFile();
   }
 
+  /**
+   * Used to switch views within the main scene
+   * @param root Pane to switch to
+   */
   public static void switchRoot(Pane root) {
     scene.setRoot(root);
   }
 
+  /**
+   * Creates a new TicketAddView and shows it to the user
+   */
   public void handleAddButton() {
     TicketAddView ticketAddView = new TicketAddView(this.ticketHandler);
     Stage addStage = ticketAddView.getStage();
